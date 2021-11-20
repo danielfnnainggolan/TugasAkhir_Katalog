@@ -11,13 +11,11 @@ class CustomModel extends Model
   public function getKatalog()
   {
     $builder = $this->db->table('katalog');
-    $builder->select('katalog.id_katalog, katalog.nama_barang, katalog.id_merek, merek.nama_merek,stok.stok, katalog.harga, kategori.nama_kategori, katalog.id_kategori');
+    $builder->select('katalog.id_katalog, katalog.nama_barang, katalog.id_merek, merek.nama_merek,SUM(stok.status) AS stok, katalog.harga, kategori.nama_kategori, katalog.id_kategori');
     $builder->join('merek', 'merek.id_merek = katalog.id_merek', 'left');
     $builder->join('kategori', 'kategori.id_kategori = katalog.id_kategori', 'left');
     $builder->join('stok', 'stok.id_katalog = katalog.id_katalog', 'left');
-    $builder->groupBy(["katalog.id_katalog", "stok.id_katalog"]);
-    $builder->orderBy("stok.createdAt", "DESC");
-
+    $builder->groupBy('stok.id_katalog');
     $query = $builder->get()->getResult();
     return $query;
   }
@@ -26,6 +24,16 @@ class CustomModel extends Model
   {
     $builder = $this->db->table('katalog');
     $builder->select('katalog.id_katalog, katalog.nama_barang, katalog.deskripsi');
+    $query = $builder->get()->getResult();
+    return $query;
+  }
+
+
+  public function getKategori()
+  {
+    $builder = $this->db->table('kategori k1');
+    $builder->select('k2.id_kategori AS id_kategori, k2.nama_kategori AS nama_kategori, k1.nama_kategori AS parent_kategori, k1.id_kategori AS id_kategori1, k1.parent_kategori AS parent_kategori1');
+    $builder->join('kategori k2', 'k1.id_kategori = k2.parent_kategori', 'right');
     $query = $builder->get()->getResult();
     return $query;
   }
@@ -46,6 +54,35 @@ class CustomModel extends Model
   public function getKontak()
   {
     $builder = $this->db->table('kontak');
+    $query = $builder->get()->getResult();
+    return $query;
+  }
+
+  public function getSearch($array, $perPage, $offset)
+  {
+    $builder = $this->db->table('katalog');
+    $builder->select('katalog.id_katalog, katalog.deskripsi, katalog.nama_barang, katalog.id_merek, merek.nama_merek,SUM(stok.status) AS stok, katalog.harga, kategori.nama_kategori, katalog.id_kategori');
+    $builder->join('merek', 'merek.id_merek = katalog.id_merek', 'left');
+    $builder->join('kategori', 'kategori.id_kategori = katalog.id_kategori', 'left');
+    $builder->join('stok', 'stok.id_katalog = katalog.id_katalog', 'left');
+    $builder->orLike($array);
+    
+    $builder->groupBy('stok.id_katalog');
+    $query = $builder->get($perPage, $offset)->getResult();
+    return $query;
+  }
+
+
+  public function getSearchTotal($array)
+  {
+    $builder = $this->db->table('katalog');
+    $builder->select('katalog.id_katalog, katalog.deskripsi, katalog.nama_barang, katalog.id_merek, merek.nama_merek,SUM(stok.status) AS stok, katalog.harga, kategori.nama_kategori, katalog.id_kategori');
+    $builder->join('merek', 'merek.id_merek = katalog.id_merek', 'left');
+    $builder->join('kategori', 'kategori.id_kategori = katalog.id_kategori', 'left');
+    $builder->join('stok', 'stok.id_katalog = katalog.id_katalog', 'left');
+    $builder->orLike($array);
+    
+    $builder->groupBy('stok.id_katalog');
     $query = $builder->get()->getResult();
     return $query;
   }

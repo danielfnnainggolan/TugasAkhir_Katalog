@@ -57,10 +57,8 @@
           <table id="example1" class="table table-bordered table-striped">
             <thead>
             <tr>
-              <th style="text-align: center;">No.</th>
               <th style="text-align: center;">Nama Barang</th>
-              <th style="text-align: center;">Stok</th>
-              
+              <th style="text-align: center;">Stok Barang</th>
               <th style="text-align: center;">Waktu Data Terakhir Diubah</th>
               
 
@@ -72,7 +70,6 @@
           $num=1;
           foreach ($stok as $row) { ?>
             <tr>
-              <td class="num" style="text-align: center;"><?php echo $num;?></td>
               <td class="nama_barang" style="text-align: center;"><?php echo $row->nama_barang; ?></td>
               <td class="stok" style="text-align: center;"><?php echo $row->stok; ?></td>
               <td class="createdAt" style="text-align: center;"><?php echo $row->createdAt; ?></td>
@@ -96,7 +93,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Tambah Deskripsi</h5>
+      <h5 class="modal-title" id="exampleModalLabel">Tambah Data Stok</h5>
       <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -113,8 +110,8 @@
         <?php }
         ?>
       </select>
-      <label for="status">Status Masuk (+) / Keluar (-) Barang</label><input type="text" name="status" id="status" class="form-control status">
-      <label for="keterangan">Keterangan</label><input type="text" name="keterangan" id="keterangan" class="form-control keterangan">
+      <label for="status">Status Masuk (+) / Keluar (-) Barang</label><input type="text" name="status" id="status" class="form-control status" placeholder="Cth : 50 atau -50">
+      <label for="keterangan">Keterangan</label><input type="text" name="keterangan" id="keterangan" class="form-control keterangan" placeholder="Cth: Barang Masuk / Keluar dari">
       </div>
     </div>
     <div class="modal-footer">
@@ -174,7 +171,7 @@
 
 $(function () {
     $("#example1").DataTable({
-                        "retrieve":true,"responsive": true, "lengthChange": false, "autoWidth": false,"ordering": false,
+                        "retrieve":true,"responsive": true, "lengthChange": false, "autoWidth": false,"ordering": true, "pageLength" : 14,
                         "buttons": [{extend:'csv',exportOptions: {columns: "thead th:not(.noExport)"}},
                         {extend:'excel',exportOptions: {columns: "thead th:not(.noExport)"}},
                         {extend:'pdf',exportOptions: {columns: "thead th:not(.noExport)"}},

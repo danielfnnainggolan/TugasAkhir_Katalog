@@ -8,6 +8,11 @@
 	<head>
 
 		<style>
+
+		img {
+    		max-width: 100%;
+    		max-height: 100%;
+			}
 		.carousel-item
 		{
 			height: 600px;
@@ -51,10 +56,7 @@
 
 							<!-- Content -->
 								<section>
-									<header class="main">
-										<h1>CV. Karya Graha Agung</h1>
-									</header>
-
+									
 									<div id="carouselExampleIndicators" class="carousel slide carousel-dark" data-bs-ride="carousel" style="position: relative;">
   									<div class="carousel-indicators">
     									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -135,12 +137,17 @@
 						<div class="inner">
 
 							<!-- Search -->
-
-							
 								<section id="search" class="alt">
 
 								<div>
-									<form method="GET" action="<?= base_url('Home/search');?>">
+									<img src="<?= base_url('images/sidebar.png');?>">
+										
+								</div>
+								<br>
+							
+								
+								<div>
+									<form method="GET" action="<?= base_url('Home/Search');?>">
 									
 										<input type="text" name="query" id="query" placeholder="Search" />
 										
@@ -156,17 +163,19 @@
 									<ul>
 										<li><a href="<?= base_url('Home');?>">Homepage</a></li>
 										<?php foreach ($kategori as $row) {
-											if(is_null($row['parent_kategori'])) { ?>
+											if(is_null($row->parent_kategori1) && is_null($row->id_kategori1)) { ?>
 										   <li>
-											<span class="opener"><?php echo $row['nama_kategori'];?></span>
-											<?php foreach ($kategori as $row1) {
-												if($row1['parent_kategori'] == $row['id_kategori']) { ?>
+											<span class="opener"><?php echo $row->nama_kategori;?></span>
 											<ul>
-												<li><a href="#"> <?php echo $row1['nama_kategori'];	?></a></li>
+											<?php foreach ($kategori as $row1) { 
+												if($row1->id_kategori1 == $row->id_kategori) { ?>
+												<li><a href="#"><?php echo $row1->nama_kategori;	?></a></li>
+												
+											<?php }} ?>	
 											</ul>
-										<?php }} ?>
+											
 										</li>
-									<?php }}?>
+										<?php }} ?>
 										
 									</ul>
 								</nav>
@@ -183,14 +192,21 @@
 									<?php foreach ($kontak as $row) { ?>
 									<p><b><?php echo $row->nama;?></b></p>
 									<ul class="contact">
-										<li class="icon solid fa-envelope"><a href="mailto:<?php echo $row->email;?>"><?php echo $row->email;?></a></li>
+										<li class="icon solid fa-envelope"> <?= safe_mailto($row->email, $row->email);?></li>
 										<li class="icon solid fa-phone"><?php echo $row->nomor_hp;?></li>
 										<li class="icon solid fa-home"><?php echo $row->alamat;?></li>
 									</ul>
 									<?php } ?>
 									</section>
-							<!-- Footer -->
 
+							<section>
+									<header class="major">
+										<h2>Partnerships</h2>
+									</header>
+									
+									</section>
+							<!-- Footer -->
+							
 
 						</div>
 					</div>

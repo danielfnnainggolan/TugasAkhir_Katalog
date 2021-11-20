@@ -262,12 +262,77 @@ class Backdoor extends BaseController
 
 	public function Kategori()
 			{
-				$data['kategori'] = $this->kategori->findAll();
+				$model = new CustomModel;
+				$data['kategori'] = $model->getKategori();
+				
 				echo view('Backdoor/Kategori', $data);
 				echo view('Backdoor/Sidebar');
 			}
 
+	public function Add_Kategori()
+			{
+				$parent_kategori = $this->request->getPost('parent_kategori');
+				if(is_null($parent_kategori) || empty($parent_kategori)) 
+				{
+					$data = [
+						'nama_kategori' => $this->request->getPost('nama_kategori'),
+						'parent_kategori' => NULL,
+								 ];
 
+				}
+
+				else 
+				{
+				$data = [
+						'nama_kategori' => $this->request->getPost('nama_kategori'),
+						'parent_kategori' => $this->request->getPost('parent_kategori'),
+								 ];
+				}
+				$this->kategori->insert($data);
+				return redirect()->to('Backdoor/Kategori');
+			}
+
+	public function Edit_Kategori()
+			{
+				$id_kategori = $this->request->getPost('id_kategori');
+				$parent_kategori = $this->request->getPost('parent_kategori');
+				if($parent_kategori == "-") 
+				{
+					$data = [
+						'nama_kategori' => $this->request->getPost('nama_kategori'),
+						'parent_kategori' => NULL,
+								 ];
+				}
+
+				else 
+				{
+				$data = [
+						'nama_kategori' => $this->request->getPost('nama_kategori'),
+						'parent_kategori' => $this->request->getPost('parent_kategori'),
+								 ];
+				}
+				
+				 $this->kategori->update($id_kategori, $data);
+				 return redirect()->to('Backdoor/Kategori');
+			}		
+
+	public function Delete_Kategori()
+			{
+				$id_kategori= $this->request->getPost('id_kategori');
+				$id = array();
+
+				$model = new CustomModel;
+				$data['kategori'] = $model->getKategori();
+				foreach($data['kategori'] as $row) {
+					if($row->id_kategori1 == $id_kategori || $row->parent_kategori1 == $id_kategori || $row->id_kategori == $id_kategori) {
+						array_push($id, $row->id_kategori);
+					}
+				}
+
+				$this->kategori->delete($id);
+				return redirect()->to('Backdoor/Kategori');
+			}
+			
 
 
 
