@@ -55,7 +55,7 @@
 							<section>
 							<?php 
 							foreach ($search as $row) { ?>
-								<a style="color:inherit" href=<?= base_url('Home/Products/'.$row->nama_barang);?>>
+								<a style="color:inherit" href=<?= base_url('Home/Products/'.$row->id_katalog);?>>
 								<h3><?php echo $row->nama_barang;?></h3>
 								<p><?php echo $row->deskripsi;?></p>
 								</a>

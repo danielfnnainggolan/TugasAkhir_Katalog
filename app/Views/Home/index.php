@@ -34,6 +34,8 @@
   		border-radius: 100%;
 		}
 
+		
+
 </style>
 		<title>Judul</title>
 		<meta charset="utf-8" />
@@ -133,7 +135,7 @@
 					</div>
 
 				<!-- Sidebar -->
-					<div id="sidebar">
+				<div id="sidebar">
 						<div class="inner">
 
 							<!-- Search -->
@@ -146,11 +148,9 @@
 								<br>
 							
 								
-								<div>
+								<div >
 									<form method="GET" action="<?= base_url('Home/Search');?>">
-									
-										<input type="text" name="query" id="query" placeholder="Search" />
-										
+										<input type="text"  class="form-control" name="query" id="query" placeholder="Search" />
 									</form>
 								</div>
 								</section>

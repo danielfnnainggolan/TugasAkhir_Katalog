@@ -88,6 +88,20 @@ class CustomModel extends Model
   }
 
 
+  public function getProduct($id_katalog)
+  {
+    $builder = $this->db->table('katalog');
+    $builder->select('katalog.id_katalog, katalog.nama_barang, katalog.id_merek, merek.nama_merek,SUM(stok.status) AS stok, katalog.harga, kategori.nama_kategori, katalog.id_kategori');
+    $builder->join('merek', 'merek.id_merek = katalog.id_merek', 'left');
+    $builder->join('kategori', 'kategori.id_kategori = katalog.id_kategori', 'left');
+    $builder->join('stok', 'stok.id_katalog = katalog.id_katalog', 'left');
+    $builder->groupBy('stok.id_katalog');
+    $builder->where('katalog.id_katalog', $id_katalog);
+    $query = $builder->get()->getResult();
+    return $query;
+  }
+
+
 
 
 

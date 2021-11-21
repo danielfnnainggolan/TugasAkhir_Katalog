@@ -9,20 +9,21 @@
 
 		<style>
 
-		img {
+		.img-fit {
     		max-width: 100%;
     		max-height: 100%;
 			}
 
 		.centerit {
-    		width: 100px;
+			width: 100px;
     		height: 100px;
-    		
     		position: absolute;
-    		
+    		top:0;
+    		bottom: 0;
     		left: 0;
     		right: 0;
-   			margin: auto;
+    
+    		margin: auto;
 }
 
 
@@ -35,7 +36,7 @@
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.css');?>" />
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/main.css');?>" />
 
-
+	
 	</head>
 	<body class="is-preload">
 
@@ -48,25 +49,26 @@
 
 							<!-- Header -->
 							<header id="header">
-									<p>Showing <strong><?= $begin;?> - <?= $end;?></strong> out Of <strong><?= $count?></strong> results for <strong>"<?= $query;?>"</strong></p>
+									<h2><?php foreach ($product as $row) { echo $row->nama_barang;}?></h2>
 									
 								</header>
 							<!-- Content -->
 							<section>
-							<?php 
-							foreach ($search as $row) { ?>
-								<a style="color:inherit" href=<?= base_url('Home/Products/'.$row->nama_barang);?>>
-								<h3><?php echo $row->nama_barang;?></h3>
-								<p><?php echo $row->deskripsi;?></p>
-								</a>
-								<hr>
-							<?php } ?>
-							</section>
-							<div class="centerit">
-							<?= $pager; ?>
-
-
+							
+							<?php foreach ($product as $row) { ?>	
+							<span class="image fit"><img src="<?= base_url('images/animasi_5.gif');?>" alt="" /></span>
+							<div>
+							<p style="font-size: 150%;font-family: helvetica;">
+							<strong>Name : </strong><?= $row->nama_barang;?><br>
+							<strong>Category : </strong><?= $row->nama_kategori;?><br>
+							<strong>Price : </strong><?="IDR ".number_format($row->harga,0,',','.'); ?><br>
+							<strong>Brand : </strong><?= $row->nama_merek;?><br>
+							<strong>Stock : </strong><?= $row->stok;?></p>
 							</div>
+									
+							<?php } ?>		
+									
+							</section>
 							
 								
 
@@ -81,7 +83,7 @@
 								<section id="search" class="alt">
 
 								<div>
-									<img src="<?= base_url('images/sidebar.png');?>">
+									<img class="img-fit" src="<?= base_url('images/sidebar.png');?>">
 										
 								</div>
 								<br>

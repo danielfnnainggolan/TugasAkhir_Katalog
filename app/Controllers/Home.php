@@ -21,6 +21,7 @@ class Home extends BaseController
 		$data['kontak'] = $model->getKontak();
 		
 		echo view('Home/index.php', $data);
+		
 	}
 
 	public function Search()
@@ -51,10 +52,14 @@ class Home extends BaseController
 
 	public function Products()
 	{
-		$product = $this->uri->getSegment(3);
+		$id_katalog = $this->uri->getSegment(3);
 		$model = new CustomModel();
 		$data['kategori'] = $model->getKategori();
 		$data['kontak'] = $model->getKontak();
+		$data['product'] = $model->getProduct($id_katalog);
+
+
+		
 		
 		
 		echo view('Home/products.php', $data);
