@@ -48,13 +48,14 @@
 
 							<!-- Header -->
 							<header id="header">
-									<p>Showing <strong><?= $begin;?> - <?= $end;?></strong> out Of <strong><?= $count?></strong> results for <strong>"<?= $query;?>"</strong></p>
+									
+									<p>Showing <strong><?= $begin;?> - <?= $end;?></strong> out Of <strong><?= $count?></strong> results for <strong>"<?php foreach ($query as $row) {echo $row->nama_kategori;}?>"</strong></p>
 									
 								</header>
 							<!-- Content -->
 							<section>
 							<?php 
-							foreach ($search as $row) { ?>
+							foreach ($product_category as $row) { ?>
 								<a style="color:inherit" href=<?= base_url('Home/Products/'.$row->id_katalog);?>>
 								<h3><?php echo $row->nama_barang;?></h3>
 								<p><?php echo $row->deskripsi;?></p>
@@ -141,6 +142,7 @@
 									</section>
 
 								<section>
+								
 									
 									</section>
 							<!-- Footer -->

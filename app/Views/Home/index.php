@@ -169,7 +169,7 @@
 											<ul>
 											<?php foreach ($kategori as $row1) { 
 												if($row1->id_kategori1 == $row->id_kategori) { ?>
-												<li><a href="#"><?php echo $row1->nama_kategori;	?></a></li>
+												<li><a href="<?= base_url('Home/Category/'.$row1->id_kategori);?>"><?php echo $row1->nama_kategori;	?></a></li>
 												
 											<?php }} ?>	
 											</ul>
@@ -200,9 +200,7 @@
 									</section>
 
 							<section>
-									<header class="major">
-										<h2>Partnerships</h2>
-									</header>
+									
 									
 									</section>
 							<!-- Footer -->

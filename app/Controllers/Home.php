@@ -12,6 +12,7 @@ class Home extends BaseController
 		$this->katalog = new Katalog();
         helper('form', 'url');
 		$this->uri = service('uri');
+		$this->perPage = 5;
     }
 
 	public function Index()
@@ -31,7 +32,7 @@ class Home extends BaseController
 		$query = $this->request->getGet('query');
 		
 		$page = (int)(($this->request->getGet('page')!==null)?$this->request->getGet('page'):1)-1;
-		$perPage = 7;
+		$perPage = $this->perPage;
 		$offset = $perPage * $page;
 		$array = ['nama_barang' => $query, 'deskripsi' => $query, 'nama_kategori' => $query, 'nama_merek' => $query];
 		$total = count($model->getSearchTotal($array));
@@ -57,14 +58,32 @@ class Home extends BaseController
 		$data['kategori'] = $model->getKategori();
 		$data['kontak'] = $model->getKontak();
 		$data['product'] = $model->getProduct($id_katalog);
-
-
-		
-		
-		
 		echo view('Home/products.php', $data);
+	}
 
+	public function Category()
+	{
+		$model = new CustomModel();
+		$pager=service('pager');
+		$category = $this->uri->getSegment(3);
 		
+		$page = (int)(($this->request->getGet('page')!==null)?$this->request->getGet('page'):1)-1;
+		$perPage = $this->perPage;
+		$offset = $perPage * $page;
+		
+		$total = count($model->getProCatTotal($category));
+
+		$data['product_category']= $model->getProCat($category, $perPage, $offset);
+		$data['pager'] = $pager->makeLinks($page+1,$perPage,$total, 'custom_template');;
+		$data['kategori'] = $model->getKategori();
+		$data['kontak'] = $model->getKontak();
+		$data['count'] = $total;
+		$data['query'] = $model->getCategoryID($category);
+		$data['page'] = count($data['product_category']);
+		$data['begin'] = $offset+1;
+		$data['end'] = $offset+$perPage;
+		
+		echo view('Home/category.php', $data);
 	}
 }
 

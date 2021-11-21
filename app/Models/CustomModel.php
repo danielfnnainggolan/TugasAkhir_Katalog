@@ -101,6 +101,35 @@ class CustomModel extends Model
     return $query;
   }
 
+  public function getProCat($category, $perPage, $offset)
+  {
+    $builder = $this->db->table('katalog');
+    $builder->select('katalog.id_katalog, katalog.nama_barang, katalog.deskripsi, kategori.nama_kategori, katalog.harga,kategori.parent_kategori');
+    $builder->join('kategori', 'kategori.id_kategori = katalog.id_kategori', 'left');
+    $builder->where('kategori.parent_kategori', $category);
+    $query = $builder->get($perPage, $offset)->getResult();
+    return $query;
+  }
+
+  public function getProCatTotal($category)
+  {
+    $builder = $this->db->table('katalog');
+    $builder->select('katalog.id_katalog, katalog.nama_barang, katalog.deskripsi, kategori.nama_kategori,katalog.harga,kategori.parent_kategori');
+    $builder->join('kategori', 'kategori.id_kategori = katalog.id_kategori', 'left');
+    $builder->where('kategori.parent_kategori', $category);
+    $query = $builder->get()->getResult();
+    return $query;
+  }
+
+  public function getCategoryID($category)
+  {
+    $builder = $this->db->table('kategori');
+    $builder->select('nama_kategori');
+    $builder->where('kategori.id_kategori', $category);
+    $query = $builder->get()->getResult();
+    return $query;
+  }
+
 
 
 

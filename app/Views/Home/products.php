@@ -143,9 +143,7 @@
 									</section>
 
 								<section>
-									<header class="major">
-										<h2>Partnerships</h2>
-									</header>
+									
 									
 									</section>
 							<!-- Footer -->
