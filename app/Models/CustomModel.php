@@ -130,6 +130,18 @@ class CustomModel extends Model
     return $query;
   }
 
+  public function getHistory()
+  {
+    $builder = $this->db->table('katalog');
+    $builder->select('stok.id_katalog, stok.id, stok.status, katalog.id_katalog,  stok.keterangan, katalog.nama_barang, stok.createdAt');
+    $builder->join('stok', 'stok.id_katalog = katalog.id_katalog', 'left');
+    $builder->orderBy('stok.createdAt', 'DESC');
+
+
+    $query = $builder->get()->getResult();
+    return $query;
+  }
+
 
 
 

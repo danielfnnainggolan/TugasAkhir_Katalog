@@ -53,32 +53,47 @@
     <section class="content">
       <div class="card">
 
-        <div class="card-body">
+      <div class="card-body">
           <table id="example1" class="table table-bordered table-striped">
             <thead>
             <tr>
-              <th style="text-align: center;">Nama Barang</th>
-              <th style="text-align: center;">Stok Barang</th>
-              <th style="text-align: center;">Waktu Data Terakhir Diubah</th>
+              <th style="text-align: center;">No.</th>
+              <th class="noExport" style="text-align: center;">id_stok</th>
+              <th class="noExport" style="text-align: center;">id_katalog</th>
               
+              <th style="text-align: center;">Nama Barang</th>
+              <th style="text-align: center;">Status</th>
+              <th style="text-align: center;">Keterangan</th>
+              <th style="text-align: center;">Data Terakhir Diubah</th>
+              <th class="noExport" style="text-align: center;">Aksi</th>
 
             </tr>
             </thead>
             <tbody>
           <?php
-
+          
           $num=1;
           foreach ($stok as $row) { ?>
             <tr>
+              <td class="num" style="text-align: center;"><?php echo $num;?></td>
+              <td class="id_stok" style="text-align: center;"><?php echo $row->id;?></td>
+              <td class="id_katalog" style="text-align: center;"><?php echo $row->id_katalog;?></td>
               <td class="nama_barang" style="text-align: center;"><?php echo $row->nama_barang; ?></td>
-              <td class="stok" style="text-align: center;"><?php echo $row->stok; ?></td>
+              <td class="status" style="text-align: center;"><?php echo $row->status; ?></td>
+              <td class="keterangan" style="text-align: center;"><?php echo $row->keterangan; ?></td>
               <td class="createdAt" style="text-align: center;"><?php echo $row->createdAt; ?></td>
-              
+
+              <td style="text-align: center;">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-edit"></i> Edit</button>
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Hapus</button>
+
+                </td>
             </tr>
           <?php $num++;} ?>
             </tfoot>
           </table>
         </div>
+
         <!-- /.card-body -->
       </div>
     </section>
@@ -86,7 +101,66 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <div class="modal fade" id="editModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Stok</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="<?php echo base_url('Backdoor/Edit_Stok'); ?>">
 
+        <div class="form-group">
+        <input type="text" name="id_stok"  class="form-control id_stok" hidden >
+        <label for="namaBarang">Nama Barang</label>
+        <select id="select2EditStok" class="form-control select2 id_katalog" style="width:100%" name="id_katalog">
+        <?php
+        foreach($stok as $row) {?>
+          <option value="<?php echo $row->id_katalog;?>"><?php echo $row->nama_barang;?>
+        <?php }
+        ?>
+      </select>
+      <label for="status">Status</label><input id="status" type="text" name="status"  class="form-control status" >
+      <label for="keterangan">Keterangan</label><input type="text" name="keterangan"  class="form-control keterangan" >
+      </div>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Hapus Stok</h5>
+      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form method="POST" action="<?php echo base_url('Backdoor/Delete_Stok'); ?>">
+      <div class="form-group">
+      <input type="text" name="id_stok"  class="form-control id_stok_delete" hidden>
+      <p> Apakah Anda yakin ingin menghapus stok barang ini? </p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tidak</button>
+      <button type="submit" class="btn btn-danger">Ya</button>
+    </form>
+    </div>
+  </div>
+</div>
+</div>
  
 
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -99,7 +173,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <form method="POST" action="<?php echo base_url('Backdoor/Add_Stok'); ?>">
+      <form method="POST" action="<?php echo base_url('Backdoor/Add_Stok_History'); ?>">
       <div class="form-group">
 
       <label for="namaBarang">Nama Barang</label>
@@ -110,7 +184,7 @@
         <?php }
         ?>
       </select>
-      <label for="status">Status Masuk (+) / Keluar (-) Barang</label><input type="text" name="status" id="status" class="form-control status" placeholder="Cth : 50 atau -50">
+      <label for="status">Status Masuk (+) / Keluar (-) Barang</label><input type="text" name="status" id="status1" class="form-control status" placeholder="Cth : 50 atau -50">
       <label for="keterangan">Keterangan</label><input type="text" name="keterangan" id="keterangan" class="form-control keterangan" placeholder="Cth: Barang Masuk / Keluar dari">
       </div>
     </div>
@@ -177,6 +251,7 @@ $(function () {
                         {extend:'pdf',exportOptions: {columns: "thead th:not(.noExport)"}},
                         {text: 'Tambah Data Stok',action: function (e, node, config){$('#addModal').modal('show')}}
                                   ],
+                        "aoColumnDefs": [ { "sClass": "dpass", "aTargets": [ 1 ,2 ] } ]
                        
 
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
@@ -191,26 +266,28 @@ $(function () {
   $('#select2AddStok').select2({
           dropdownParent: $('#addModal'),
       });
+  $('#select2EditStok').select2({
+          dropdownParent: $('#editModal'),
+      });
 
 
 
-  $('#editModal').on('show.bs.modal', function (e) {
+    $('#editModal').on('show.bs.modal', function (e) {
     var _button = $(e.relatedTarget);
     // console.log(_button, _button.parents("tr"));
     var _row = _button.parents("tr");
+    var _id_stok = _row.find(".id_stok").text();
     var _id_katalog = _row.find(".id_katalog").text();
     var _status = _row.find(".status").text();
-    var _id_stok = _row.find(".id_stok").text();
-    var _stok = _row.find(".stok").text();
-    var _nama_barang = _row.find(".nama_barang").text();
-    
     var _keterangan = _row.find(".keterangan").text();
-    $(this).find(".nama_barang").val(_nama_barang);
-    $(this).find(".stok").val(_stok);
-    $(this).find(".id_katalog").val(_id_katalog);
+   
+
     $(this).find(".id_stok").val(_id_stok);
+    $('#select2EditStok').val(_id_katalog);
+    $('#select2EditStok').trigger('change');
     $(this).find(".status").val(_status);
     $(this).find(".keterangan").val(_keterangan);
+    
     });
 
 
@@ -221,15 +298,13 @@ $('#deleteModal').on('show.bs.modal', function (e) {
 
   // console.log(_button, _button.parents("tr"));
   var _row = _button.parents("tr");
-  var _id_katalog_delete = _row.find(".id_katalog").text();
   var _id_stok_delete = _row.find(".id_stok").text();
   
-  var _stok_delete = _row.find(".stok").text();
 
-  $(this).find(".id_katalog_delete").val(_id_katalog_delete);
+ 
   $(this).find(".id_stok_delete").val(_id_stok_delete);
 
-  $(this).find(".stok_delete").val(_stok_delete);
+
 
 });
 
@@ -252,6 +327,9 @@ function setInputFilter(textbox, inputFilter) {
 }
 
 setInputFilter(document.getElementById("status"), function(value) {
+  return /^-?\d*$/.test(value); });
+
+setInputFilter(document.getElementById("status1"), function(value) {
   return /^-?\d*$/.test(value); });
 </script>
 

@@ -197,62 +197,46 @@ class Backdoor extends BaseController
 
 	public function History()
 			{
-				
-				$data['stok'] = $this->stok->findAll();
+				$model = new CustomModel;
+				$data['stok'] = $model->getHistory();
 				echo view('Backdoor/History', $data);
 				echo view('Backdoor/Sidebar');
 			}
 
+	public function Edit_Stok()
+			{
+				$id = $this->request->getPost('id_stok');
+				$data = [
+					'id_katalog' => $this->request->getPost('id_katalog'),
+					'status' => $this->request->getPost('status'),
+					'keterangan' => $this->request->getPost('keterangan'),
+									];
 
-	#NOTE : DISIMPAN DULU		
-	// public function Edit_Stok()
-	// 		{
-	// 			$id = $this->request->getPost('id_stok');
-	// 			$stok_awal  = $this->stok->select('stok,status')->orderBy('createdAt','DESC')->find($id);
-	// 			$status = $this->request->getPost('status');
-	// 			$stok = $stok_awal['stok'] + ($status - $stok_awal['status']);
+				 $this->stok->update($id, $data);
+				 return redirect()->to('Backdoor/History');
+			}
 
-	// 			$data = [
-	// 				'id_katalog' => $this->request->getPost('id_katalog'),
-	// 				'stok' => $stok,
-	// 				'status' => $status,
-	// 				'keterangan' => $this->request->getPost('keterangan'),
-	// 								];
+	public function Delete_Stok()
+			{
+				$id = $this->request->getPost('id_stok');
 
-	// 			 $this->stok->update($id, $data);
-	// 			 return redirect()->to('Backdoor/Stok');
-	// 		}
+				$this->stok->delete($id);
+				return redirect()->to('Backdoor/History');
+			}
 
-	// public function Delete_Stok()
-	// 		{
-	// 			$id_katalog = $this->request->getPost('id_katalog');
-	// 			$count = $this->stok->where('id_katalog', $id_katalog)->countAllResults();
+	public function Add_Stok_History()
+			{
 				
-	// 			if($count = 1) {
-	// 				$id = $this->request->getPost('id_stok');
-	// 				$stok_awal  = $this->stok->select('stok,status')->orderBy('createdAt','DESC')->find($id);
-	// 				$status = 0;
-	// 				$stok = $stok_awal['stok'] + ($status - $stok_awal['status']);
-	
-	// 				$data = [
-	// 					'id_katalog' => $this->request->getPost('id_katalog'),
-	// 					'stok' => $stok,
-	// 					'status' => $status,
-	// 					'keterangan' => 'Stok dikembalikan ke awal. Alasan : Dihapus',
-	// 									];
-	
-	// 				 $this->stok->update($id, $data);
-	// 			}
+				$data = [
+						'id_katalog' => $this->request->getPost('id_katalog'), 
+						'status' => $this->request->getPost('status'),
+						'keterangan' => $this->request->getPost('keterangan'),
+								 ];
 
-	// 			else {
+				$this->stok->insert($data);
 
-	// 			}
-
-
-				
-	// 			return redirect()->to('Backdoor/Stok');
-	// 		}
-
+				return redirect()->to('Backdoor/History');
+			}
 
 	public function Add_Stok()
 			{
@@ -364,10 +348,6 @@ class Backdoor extends BaseController
 		else {
 			return redirect()->to('Backdoor/Account');
 		}
-		
-		
-	    // echo view('Backdoor/account', $data);
-		// echo view('Backdoor/sidebar');
 	  }
 			
 

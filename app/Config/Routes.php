@@ -40,9 +40,10 @@ $routes->group('Backdoor', ['filter' => 'auth'], function ($routes) {
     $routes->add('Deskripsi', 'Backdoor::deskripsi');
 	$routes->add('Merek', 'Backdoor::merek');
 	$routes->add('Kategori', 'Backdoor::kategori');
-	$routes->add('Stok', 'Backdoor::stok');
+	$routes->add('Stok', 'Backdoor::history');
 	$routes->add('Account', 'Backdoor::account');
 	$routes->add('Logout', 'Backdoor::logout');
+	$routes->add('History', 'Backdoor::stok');
 });
 
 
