@@ -74,24 +74,22 @@
 					</div>
 
 				<!-- Sidebar -->
-					<div id="sidebar">
+				<div id="sidebar">
 						<div class="inner">
 
 							<!-- Search -->
 								<section id="search" class="alt">
 
 								<div>
-									<img src="<?= base_url('images/sidebar.png');?>">
+									<a href="<?= base_url('Home');?>"> <img src="<?= base_url('images/sidebar.png');?>"></a>
 										
 								</div>
 								<br>
 							
 								
-								<div>
+								<div >
 									<form method="GET" action="<?= base_url('Home/Search');?>">
-									
-										<input type="text" name="query" id="query" placeholder="Search" />
-										
+										<input type="text"  class="form-control" name="query" id="query" placeholder="Search" />
 									</form>
 								</div>
 								</section>
@@ -110,7 +108,7 @@
 											<ul>
 											<?php foreach ($kategori as $row1) { 
 												if($row1->id_kategori1 == $row->id_kategori) { ?>
-												<li><a href="#"><?php echo $row1->nama_kategori;	?></a></li>
+												<li><a href="<?= base_url('Home/Category/'.$row1->id_kategori);?>"><?php echo $row1->nama_kategori;	?></a></li>
 												
 											<?php }} ?>	
 											</ul>
@@ -135,12 +133,13 @@
 									<ul class="contact">
 										<li class="icon solid fa-envelope"> <?= safe_mailto($row->email, $row->email);?></li>
 										<li class="icon solid fa-phone"><?php echo $row->nomor_hp;?></li>
-										<li class="icon solid fa-home"><?php echo $row->alamat;?></li>
+										<li class="icon solid fa-building"><?php echo $row->alamat;?></li>
 									</ul>
 									<?php } ?>
 									</section>
 
-								<section>
+							<section>
+									
 									
 									</section>
 							<!-- Footer -->

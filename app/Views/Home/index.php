@@ -142,7 +142,7 @@
 								<section id="search" class="alt">
 
 								<div>
-									<img src="<?= base_url('images/sidebar.png');?>">
+									<a href="<?= base_url('Home');?>"> <img src="<?= base_url('images/sidebar.png');?>"></a>
 										
 								</div>
 								<br>
@@ -194,7 +194,7 @@
 									<ul class="contact">
 										<li class="icon solid fa-envelope"> <?= safe_mailto($row->email, $row->email);?></li>
 										<li class="icon solid fa-phone"><?php echo $row->nomor_hp;?></li>
-										<li class="icon solid fa-home"><?php echo $row->alamat;?></li>
+										<li class="icon solid fa-building"><?php echo $row->alamat;?></li>
 									</ul>
 									<?php } ?>
 									</section>

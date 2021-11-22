@@ -33,7 +33,18 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('Backdoor/Login', 'Backdoor::welcome',['filter' => 'auth']);
+
+$routes->group('Backdoor', ['filter' => 'auth'], function ($routes) {
+	
+    $routes->add('Katalog', 'Backdoor::katalog');
+    $routes->add('Deskripsi', 'Backdoor::deskripsi');
+	$routes->add('Merek', 'Backdoor::merek');
+	$routes->add('Kategori', 'Backdoor::kategori');
+	$routes->add('Stok', 'Backdoor::stok');
+	$routes->add('Account', 'Backdoor::account');
+	$routes->add('Logout', 'Backdoor::logout');
+});
+
 
 /*
  * --------------------------------------------------------------------

@@ -7,7 +7,7 @@ class Admin extends Model
   protected $table      = 'admin';
   protected $primaryKey = 'id_admin';
   protected $returnType     = 'array';
-
+  protected $allowedFields = ['password'];
 
 
   }

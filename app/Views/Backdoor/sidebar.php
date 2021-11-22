@@ -57,12 +57,27 @@
               </li>
             </ul>
             <li class="nav-item">
+              <a href="<?= base_url('Backdoor/Account');?>" class="nav-link">
+                <i class="nav-icon fas fa-cog"></i>
+                <p>Account Settings</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('Backdoor/History');?>" class="nav-link">
+                <i class="nav-icon fas fa-history"></i>
+                <p>Stok History</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="<?= base_url('Backdoor/Logout');?>" class="nav-link">
                 <i class="far fa-user nav-icon"></i>
                 <p>Logout</p>
               </a>
             </li>
+
           </li>
+
+          
 
         </ul>
       </nav>

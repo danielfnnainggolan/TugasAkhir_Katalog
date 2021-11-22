@@ -44,95 +44,41 @@
 
     <!-- Main content -->
     <section class="content">
-    <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>Daftar Katalog</h3>
-                <p>Mengelola Daftar Katalog</p>
-                
+    <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Account Settings</h3>
               </div>
-              <div class="icon">
-                <i class="fas fa-book"></i>
-              </div>
-              <a href="<?= base_url('Backdoor/Katalog');?>" class="small-box-footer">
-                Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
-              </a>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form class="form-horizontal" method="POST" action="<?php echo base_url('Backdoor/Account_Change'); ?>">
+                <div class="card-body">
+                  <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">Username</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php echo $admin['username'];?>" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="oldPassword" class="col-sm-2 col-form-label">Old Password</label>
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" name="oldPassword" id="oldPassword" placeholder="Old Password">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="newPassword" class="col-sm-2 col-form-label">New Password</label>
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="New Password" >
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-info">Sign in</button>
+                  <button type="submit" class="btn btn-default float-right">Cancel</button>
+                </div>
+                <!-- /.card-footer -->
+              </form>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>Deskripsi Barang</h3>
-                <p>Mengelola Deskripsi Barang</p>
-                
-              </div>
-              <div class="icon">
-                <i class="fas fa-book"></i>
-              </div>
-              <a href="<?= base_url('Backdoor/Deskripsi');?>" class="small-box-footer">
-                Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
-              </a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>Merek Barang</h3>
-                <p>Mengelola Merek Barang</p>
-                
-              </div>
-              <div class="icon">
-                <i class="fas fa-book"></i>
-              </div>
-              <a href="<?= base_url('Backdoor/Merek');?>" class="small-box-footer">
-                Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
-              </a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>Kategori Barang</h3>
-                <p>Mengelola Kategori Barang</p>
-                
-              </div>
-              <div class="icon">
-                <i class="fas fa-book"></i>
-              </div>
-              <a href="<?= base_url('Backdoor/Kategori');?>" class="small-box-footer">
-                Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>Stok Barang</h3>
-                <p>Mengelola Stok Barang</p>
-                
-              </div>
-              <div class="icon">
-                <i class="fas fa-book"></i>
-              </div>
-              <a href="<?= base_url('Backdoor/Stok');?>" class="small-box-footer">
-                Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
-              </a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-        
-      </div>
-
 
     </section>
     <!-- /.content -->

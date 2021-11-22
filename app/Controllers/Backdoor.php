@@ -36,12 +36,13 @@ class Backdoor extends BaseController
 	{
 			$session = session();
 			$username = $this->request->getPost('username');
-			$check = $this->user->where('username', 'admin')->first();
+			$check = $this->user->where('username', $username)->first();
 			$pass_check = $check['password'];
 			$password = $this->request->getPost('password');
 			if(password_verify($password, $pass_check)) {
 				$ses_data = [
                     'username'       => $check['username'],
+					'id_admin'		=> $check['id_admin'],
                     'logged_in'     => TRUE
                 ];
 				$session->set($ses_data);
@@ -62,7 +63,6 @@ class Backdoor extends BaseController
 
 	public function Welcome()
 	  {
-
 	    echo view('Backdoor/welcome');
 		echo view('Backdoor/sidebar');
 	  }
@@ -192,6 +192,14 @@ class Backdoor extends BaseController
 				$model = new CustomModel;
 				$data['stok'] = $model->getStok();
 				echo view('Backdoor/Stok', $data);
+				echo view('Backdoor/Sidebar');
+			}
+
+	public function History()
+			{
+				
+				$data['stok'] = $this->stok->findAll();
+				echo view('Backdoor/History', $data);
 				echo view('Backdoor/Sidebar');
 			}
 
@@ -332,6 +340,35 @@ class Backdoor extends BaseController
 				$this->kategori->delete($id);
 				return redirect()->to('Backdoor/Kategori');
 			}
+	public function Account()
+	  {
+		$data['admin'] = $this->user->find(session()->get('id_admin'));
+		
+	    echo view('Backdoor/account', $data);
+		echo view('Backdoor/sidebar');
+	  }
+
+	public function Account_Change()
+	  {
+		$username = $this->request->getPost('username');
+		$oldPassword = $this->request->getPost('oldPassword');
+		$check = $this->user->where('username', $username)->first();
+		$pass_check = $check['password'];
+		if(password_verify($oldPassword, $pass_check)) {
+			$data = [
+				'password' => password_hash($this->request->getPost('newPassword'), PASSWORD_DEFAULT),
+							];
+			$this->user->update($this->user->find(session()->get('id_admin')), $data);
+			return redirect()->to('Backdoor/welcome');
+		}
+		else {
+			return redirect()->to('Backdoor/Account');
+		}
+		
+		
+	    // echo view('Backdoor/account', $data);
+		// echo view('Backdoor/sidebar');
+	  }
 			
 
 
